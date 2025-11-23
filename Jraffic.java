@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Jraffic extends JFrame {
+    ArrayList<VehicleCar> cars = new ArrayList<>();
 
 	public Jraffic() {
 		setTitle("Jraffic");
@@ -36,6 +38,8 @@ public class Jraffic extends JFrame {
 		}
 
 		public RoadPanel() {
+            setBackground(new Color(0, 64, 0));
+
 			setFocusable(true);
 			requestFocusInWindow();
 			addKeyListener(this);
@@ -65,6 +69,12 @@ public class Jraffic extends JFrame {
 			drawTrafficLights(g2d);
 			g2d.setColor(Color.RED);
 			g2d.drawRect(intersection.x, intersection.y, intersection.width, intersection.height);
+            for (VehicleCar car : cars) {
+                g.setColor(car.getColor());
+                g.fillRect(car.getX(), car.getY(), 40, 40);
+                car.updatePosition();
+            }
+            g.setColor(Color.WHITE);
 		}
 
 		private void drawIntersection(Graphics2D g2d) {
@@ -110,18 +120,31 @@ public class Jraffic extends JFrame {
 
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-
+            if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN
+                || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
+                Long last = (Long) this.getClientProperty("lastArrowTime");
+                long now = System.currentTimeMillis();
+                if (last != null && now - last < 1000) {
+                Toolkit.getDefaultToolkit().beep(); // optional feedback
+                return;
+                }
+                this.putClientProperty("lastArrowTime", now);
+            }
 			switch (keyCode) {
 				case KeyEvent.VK_ESCAPE:
 					System.exit(0);
 					break;
 				case KeyEvent.VK_UP:
+                    cars.add(new VehicleCar(Direction.NORTH));
 					break;
 				case KeyEvent.VK_DOWN:
+                    cars.add(new VehicleCar(Direction.SOUTH));
 					break;
 				case KeyEvent.VK_LEFT:
+                    cars.add(new VehicleCar(Direction.WEST));
 					break;
 				case KeyEvent.VK_RIGHT:
+                    cars.add(new VehicleCar(Direction.EAST));
 					break;
 				case KeyEvent.VK_R:
 					break;
