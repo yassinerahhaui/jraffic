@@ -4,7 +4,7 @@ public interface Vehicle {
 
     int getY();
 
-    Direction getDestination();
+    Destination getDestination();
 
     void setDirection(Direction direction);
 

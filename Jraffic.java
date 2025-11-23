@@ -31,6 +31,10 @@ public class Jraffic extends JFrame {
 
 		private List<Vehicle> Vehicles;
 
+		private boolean shouldTurn(Vehicle v) {
+			return intersection != null && intersection.contains(v.getX(), v.getY());
+		}
+
 		public RoadPanel() {
 			setFocusable(true);
 			requestFocusInWindow();
@@ -59,6 +63,8 @@ public class Jraffic extends JFrame {
 			drawIntersection(g2d);
 			drawLandMarkings(g2d);
 			drawTrafficLights(g2d);
+			g2d.setColor(Color.RED);
+			g2d.drawRect(intersection.x, intersection.y, intersection.width, intersection.height);
 		}
 
 		private void drawIntersection(Graphics2D g2d) {
