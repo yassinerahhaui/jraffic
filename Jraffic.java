@@ -85,10 +85,10 @@ public class Jraffic extends JFrame {
 			if (!v.getDirectionChanged()) {
 				switch (dest) {
 					case Left:
-						current--;
+						current++;
 						break;
 					case Right:
-						current++;
+						current--;
 						break;
 					default:
 						break;
