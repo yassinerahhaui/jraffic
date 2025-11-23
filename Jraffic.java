@@ -8,6 +8,7 @@ public class Jraffic extends JFrame {
     public Jraffic() {
         setTitle("Jraffic");
         setSize(800, 800);
+        setBackground(Color.BLACK);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         add(new RoadPanel());
