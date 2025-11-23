@@ -21,6 +21,14 @@ public class Jraffic extends JFrame {
 		private boolean northSouthGreen = true;
 		private int timerCount = 0;
 		private final int LIGHT_DURATION = 180;
+		private int roadWidth = 100;
+		private int roadLength = 400;
+		int ix = roadLength - roadWidth / 2;
+		int iy = roadLength - roadWidth / 2;
+		int isize = roadWidth;
+
+		Rectangle intersection = new Rectangle(ix, iy, isize, isize);
+
 		private List<Vehicle> Vehicles;
 
 		public RoadPanel() {
@@ -54,8 +62,6 @@ public class Jraffic extends JFrame {
 		}
 
 		private void drawIntersection(Graphics2D g2d) {
-			int roadWidth = 100;
-			int roadLength = 400;
 			g2d.setColor(Color.LIGHT_GRAY);
 			g2d.fillRect(350, 0, roadWidth, roadLength);
 			g2d.fillRect(350, 800 - roadLength, roadWidth, roadLength);

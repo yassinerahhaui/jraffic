@@ -1,13 +1,12 @@
-import java.awt.Color;
 
 public interface Vehicle {
     int getX();
 
     int getY();
 
-    Color getColor();
+    Direction getDestination();
 
     void setDirection(Direction direction);
 
-    void getDirection(Direction direction);
+    Direction getDirection();
 }
