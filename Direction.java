@@ -1,6 +1,8 @@
 public enum Direction {
     NORTH,
-    SOUTH,
     EAST,
-    WEST,
+    SOUTH,
+    WEST;
+
+    static int count = Direction.values().length;
 }

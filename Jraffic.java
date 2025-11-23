@@ -23,18 +23,68 @@ public class Jraffic extends JFrame {
 		private boolean northSouthGreen = true;
 		private int timerCount = 0;
 		private final int LIGHT_DURATION = 180;
-		private int roadWidth = 100;
-		private int roadLength = 400;
-		int ix = roadLength - roadWidth / 2;
-		int iy = roadLength - roadWidth / 2;
-		int isize = roadWidth;
+		private static int roadWidth = 100;
+		private static int roadLength = 400;
 
-		Rectangle intersection = new Rectangle(ix, iy, isize, isize);
+		static int halfRoad = roadWidth / 2;
+		static int a = roadLength - halfRoad;
+
+		public enum Intersection {
+			bottomRight(roadLength, roadLength),
+			topRight(roadLength, a),
+			topLeft(a, a),
+			bottomLeft(a, roadLength);
+
+			Point value;
+
+			Intersection(int x, int y) {
+				this.value = new Point(x, y);
+			}
+
+			static Intersection get(int index) {
+				return Intersection.values()[index];
+			}
+		}
 
 		private List<Vehicle> Vehicles;
 
+		private Intersection getIntersection(Direction dir, Destination dest) {
+			if (dest == Destination.Left) {
+				return Intersection.get(dir.ordinal() + 1 % Direction.count);
+			}
+
+			if (dest == Destination.Right) {
+				return Intersection.get(dir.ordinal());
+			}
+
+			return null;
+		}
+
 		private boolean shouldTurn(Vehicle v) {
-			return intersection != null && intersection.contains(v.getX(), v.getY());
+			Destination dest = v.getDestination();
+			if (dest == Destination.Straight)
+				return false;
+
+			Direction dir = v.getDirection();
+			Intersection inter = getIntersection(dir, dest);
+
+			int x = v.getX();
+			int y = v.getY();
+			Dimension d = new Dimension(halfRoad, halfRoad);
+			return new Rectangle(inter.value, d).contains(x, y);
+		}
+
+		private void changeDirection(Vehicle v) {
+			Destination dest = v.getDestination();
+			int current = v.getDirection().ordinal();
+			if (dest == Destination.Left) {
+				current--;
+			}
+			if (dest == Destination.Right) {
+				current++;
+			}
+
+			v.setDirection(Direction.values()[current % Direction.count]);
 		}
 
 		public RoadPanel() {
@@ -68,7 +118,7 @@ public class Jraffic extends JFrame {
 			drawLandMarkings(g2d);
 			drawTrafficLights(g2d);
 			g2d.setColor(Color.RED);
-			g2d.drawRect(intersection.x, intersection.y, intersection.width, intersection.height);
+			// g2d.drawRect(intersection.x, intersection.y, intersection.width, intersection.height);
             for (VehicleCar car : cars) {
                 g.setColor(car.getColor());
                 g.fillRect(car.getX(), car.getY(), 40, 40);
@@ -83,6 +133,12 @@ public class Jraffic extends JFrame {
 			g2d.fillRect(350, 800 - roadLength, roadWidth, roadLength);
 			g2d.fillRect(0, 350, roadLength, roadWidth);
 			g2d.fillRect(800 - roadLength, 350, roadLength, roadWidth);
+
+			// g2d.setColor(Color.RED);
+			// Dimension d = new Dimension(halfRoad, halfRoad);
+			// Rectangle rect = new Rectangle(Intersection.topRight.value, d);
+
+			// g2d.draw(rect);
 		}
 
 		private void drawLandMarkings(Graphics2D g2d) {
