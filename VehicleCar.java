@@ -5,46 +5,83 @@ import java.util.Random;
 public class VehicleCar implements Vehicle {
     private int x;
     private int y;
+    private int size = 40;
+
+    public int getSize() {
+        return size;
+    }
+
     private Destination destination;
     private Direction direction;
     private Color color;
 
-    public VehicleCar() {
-
-    }
     public VehicleCar(Direction dir) {
         this.direction = dir;
-        setDirection(dir);
-    }
+        Random random = new Random();
+        int routeChoice = random.nextInt(3);
+        switch (routeChoice) {
+            case 1:
+                this.destination = Destination.Straight;
+                this.color = Color.CYAN;
+                break;
+            case 2:
+                this.destination = Destination.Right;
+                this.color = Color.YELLOW;
+                break;
+            default:
+                this.destination = Destination.Left;
+                this.color = Color.RED;
+        }
 
+        switch (this.direction) {
+            case NORTH:
+                setX(405);
+                setY(800);
+                break;
+            case EAST:
+                setX(800);
+                setY(355);
+                break;
+            case SOUTH:
+                setX(355);
+                setY(0);
+                break;
+            case WEST:
+                setX(0);
+                setY(405);
+                break;
+            default:
+                break;
+        }
+    }
 
     public void updatePosition() {
         switch (this.direction) {
             case NORTH:
                 setX(405);
-                setY(getY()-1);
+                setY(getY() - 1);
                 break;
             case EAST:
-                setX(getX()+1);
-                setY(405);
+                setX(getX() - 1);
+                setY(355);
                 break;
             case SOUTH:
                 setX(355);
-                setY(getY()+1);
+                setY(getY() + 1);
                 break;
             case WEST:
-                setX(getX()-1);
-                setY(355);
+                setX(getX() + 1);
+                setY(405);
                 break;
             default:
                 break;
         }
-    } 
+    }
 
     public Color getColor() {
         return this.color;
     }
-    
+
     @Override
     public int getX() {
         return this.x;
@@ -71,41 +108,6 @@ public class VehicleCar implements Vehicle {
     @Override
     public void setDirection(Direction direction) {
         this.direction = direction;
-        switch (this.direction) {
-            case NORTH:
-                setX(405);
-                setY(800);
-                break;
-            case EAST:
-                setX(0);
-                setY(405);
-                break;
-            case SOUTH:
-                setX(355);
-                setY(0);
-                break;
-            case WEST:
-                setX(800);
-                setY(355);
-                break;
-            default:
-                break;
-        }
-        Random random = new Random();
-        int routeChoice = random.nextInt(3);
-        switch (routeChoice) {
-            case 1:
-                this.destination = Destination.Straight;
-                this.color = Color.CYAN;
-                break;
-            case 2:
-                this.destination = Destination.Right;
-                this.color = Color.YELLOW;
-                break;
-            default:
-                this.destination = Destination.Left;
-                this.color = Color.RED;
-        }
     }
 
     @Override

@@ -2,6 +2,8 @@
 public interface Vehicle {
     int getX();
 
+    int getSize();
+
     int getY();
 
     Destination getDestination();
