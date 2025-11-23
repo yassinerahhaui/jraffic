@@ -146,19 +146,17 @@ public class Jraffic extends JFrame {
 			int dashLength = 20;
 			int gapLength = 10;
 			g2d.setColor(Color.WHITE);
-			float[] dashPattern = { dashLength, gapLength };
-			g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, dashPattern, 0));
-			int verticalCenter = 350 + roadWidth / 2;
-			g2d.drawLine(verticalCenter, 0, verticalCenter, 350);
-			g2d.drawLine(verticalCenter, 450, verticalCenter, 800);
-			int horizontalCenter = 350 + roadWidth / 2;
-			g2d.drawLine(0, horizontalCenter, 350, horizontalCenter);
-			g2d.drawLine(450, horizontalCenter, 800, horizontalCenter);
+				float[] dashPattern = { dashLength, gapLength };
+			g2d.setStroke(new BasicStroke(3, 0, BasicStroke.JOIN_BEVEL, 0, dashPattern, 0));
+			int Center = 350 + roadWidth / 2;
+			g2d.drawLine(Center, 0, Center, 350);
+			g2d.drawLine(Center, 450, Center, 800);
+			g2d.drawLine(0, Center, 350, Center);
+			g2d.drawLine(450, Center, 800, Center);
 		}
 
 		private void drawTrafficLights(Graphics2D g2d) {
 			int lightSize = 20;
-			g2d.setColor(Color.BLACK);
 			drawLight(g2d, 330, 330, lightSize, northSouthGreen ? Color.GREEN : Color.RED);
 			drawLight(g2d, 450, 450, lightSize, northSouthGreen ? Color.GREEN : Color.RED);
 			drawLight(g2d, 450, 330, lightSize, northSouthGreen ? Color.RED : Color.GREEN);
@@ -170,8 +168,6 @@ public class Jraffic extends JFrame {
 			g2d.fillRect(x, y, size, size);
 			g2d.setColor(color);
 			g2d.fillOval(x + 2, y + 2, size - 4, size - 4);
-			g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100));
-			g2d.fillOval(x - 5, y - 5, size + 10, size + 10);
 		}
 
 		public void keyPressed(KeyEvent e) {
