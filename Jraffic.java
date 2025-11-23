@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;;
 
 public class Jraffic extends JFrame {
 
@@ -20,6 +21,7 @@ public class Jraffic extends JFrame {
 		private boolean northSouthGreen = true;
 		private int timerCount = 0;
 		private final int LIGHT_DURATION = 180;
+		private List<Vehicle> Vehicles;
 
 		public RoadPanel() {
 			setFocusable(true);
