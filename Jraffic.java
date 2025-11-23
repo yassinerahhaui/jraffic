@@ -193,10 +193,10 @@ public class Jraffic extends JFrame {
                     cars.add(new VehicleCar(Direction.SOUTH));
 					break;
 				case KeyEvent.VK_LEFT:
-                    cars.add(new VehicleCar(Direction.WEST));
+                    cars.add(new VehicleCar(Direction.EAST));
 					break;
 				case KeyEvent.VK_RIGHT:
-                    cars.add(new VehicleCar(Direction.EAST));
+                    cars.add(new VehicleCar(Direction.WEST));
 					break;
 				case KeyEvent.VK_R:
 					break;
