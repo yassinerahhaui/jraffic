@@ -82,13 +82,20 @@ public class Jraffic extends JFrame {
 		private void changeDirection(Vehicle v) {
 			Destination dest = v.getDestination();
 			int current = v.getDirection().ordinal();
-			if (dest == Destination.Left)
-				current--;
-			else if (dest == Destination.Right)
-				current++;
-
+			if (!v.getDirectionChanged()) {
+				switch (dest) {
+					case Left:
+						current--;
+						break;
+					case Right:
+						current++;
+						break;
+					default:
+						break;
+				}
+				v.setDirectionChanged();
+			}
 			current = Math.floorMod(current, Direction.count);
-
 			v.setDirection(Direction.values()[current]);
 		}
 

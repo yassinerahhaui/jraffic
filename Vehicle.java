@@ -10,5 +10,9 @@ public interface Vehicle {
 
     void setDirection(Direction direction);
 
+    boolean getDirectionChanged();
+    
+    void setDirectionChanged();
+
     Direction getDirection();
 }

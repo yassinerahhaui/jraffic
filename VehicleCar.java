@@ -6,9 +6,21 @@ public class VehicleCar implements Vehicle {
     private int x;
     private int y;
     private int size = 40;
+    private boolean directionChanged = false;
 
+    @Override
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public boolean getDirectionChanged() {
+        return this.directionChanged;
+    }
+
+    @Override
+    public void setDirectionChanged() {
+        this.directionChanged = true;
     }
 
     private Destination destination;
@@ -25,12 +37,12 @@ public class VehicleCar implements Vehicle {
                 this.color = Color.CYAN;
                 break;
             case 2:
-                this.destination = Destination.Right;
-                this.color = Color.YELLOW;
-                break;
-            default:
                 this.destination = Destination.Left;
                 this.color = Color.RED;
+                break;
+            default:
+                this.destination = Destination.Right;
+                this.color = Color.YELLOW;
         }
 
         switch (this.direction) {
