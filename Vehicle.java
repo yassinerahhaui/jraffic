@@ -1,5 +1,7 @@
+import java.awt.Point;
 
 public interface Vehicle {
+
     int getX();
 
     int getSize();
@@ -11,8 +13,10 @@ public interface Vehicle {
     void setDirection(Direction direction);
 
     boolean getDirectionChanged();
-    
+
     void setDirectionChanged();
 
     Direction getDirection();
+
+    Point nextPosition();
 }

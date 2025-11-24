@@ -25,9 +25,10 @@ public class Jraffic extends JFrame {
 		private final int LIGHT_DURATION = 180;
 		private static int roadWidth = 100;
 		private static int roadLength = 400;
-
+		private int safeGape = 20;
 		static int halfRoad = roadWidth / 2;
 		static int a = roadLength - halfRoad;
+		private static Rectangle stopArea = new Rectangle(a, a, roadWidth, roadWidth);
 
 		public enum Intersection {
 			bottomRight(roadLength, roadLength),
@@ -72,11 +73,9 @@ public class Jraffic extends JFrame {
 
 			Direction dir = v.getDirection();
 			Intersection inter = getIntersection(dir, dest);
-			int x = v.getX();
-			int y = v.getY();
 			Dimension d = new Dimension(halfRoad, halfRoad);
-
-			return new Rectangle(inter.value, d).contains(x, y);
+			Rectangle boundy = new Rectangle(v.getX(), v.getY(), v.getSize(), v.getSize());
+			return new Rectangle(inter.value, d).contains(boundy);
 		}
 
 		private void changeDirection(Vehicle v) {
@@ -130,9 +129,11 @@ public class Jraffic extends JFrame {
 			drawLandMarkings(g2d);
 			drawTrafficLights(g2d);
 			g2d.setColor(Color.RED);
+			int i = 0;
 			for (VehicleCar car : cars) {
+				i++;
 				// draw intersection rect
-				// g.setColor(Color.RED);
+				g.setColor(Color.RED);
 				// Intersection inter = getIntersection(car.getDirection(),
 				// car.getDestination());
 				// if (inter != null) {
@@ -140,8 +141,10 @@ public class Jraffic extends JFrame {
 				// g.drawRect(p.x, p.y, halfRoad, halfRoad);
 				// }
 
+				g2d.draw(stopArea);
 				g.setColor(car.getColor());
 				g.fillRect(car.getX(), car.getY(), car.getSize(), car.getSize());
+
 				if (shouldTurn(car))
 					changeDirection(car);
 
@@ -169,7 +172,7 @@ public class Jraffic extends JFrame {
 			int dashLength = 20;
 			int gapLength = 10;
 			g2d.setColor(Color.WHITE);
-				float[] dashPattern = { dashLength, gapLength };
+			float[] dashPattern = { dashLength, gapLength };
 			g2d.setStroke(new BasicStroke(3, 0, BasicStroke.JOIN_BEVEL, 0, dashPattern, 0));
 			int Center = 350 + roadWidth / 2;
 			g2d.drawLine(Center, 0, Center, 350);
